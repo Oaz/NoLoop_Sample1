@@ -9,7 +9,7 @@ namespace src
 		{
 			var results = new List<int>();
 			var operation = ChooseOperation(ui);
-			var untilConditionIsVerifiedFor = ChooseFilter(ui);
+			var untilConditionIsVerifiedFor = ChooseFilter(ui,operation);
 			for(var i=1; untilConditionIsVerifiedFor(i); i++)
 				results.Add(operation(i));
 			ui.Display(string.Join(", ", results));
@@ -28,13 +28,13 @@ namespace src
 			}
 		}
 		
-		static Func<int,bool> ChooseFilter(ITalkToUser ui)
+		static Func<int,bool> ChooseFilter(ITalkToUser ui, Func<int,int> operation)
 		{
 			var filter = ui.Ask("choose filter");
 			if( filter == "under" )
 			{
 				var maxValue = int.Parse(ui.Ask("max value"));
-				return i => (i*i <= maxValue);
+				return i => (operation(i) <= maxValue);
 			}
 			else
 			{

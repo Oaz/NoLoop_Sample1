@@ -38,6 +38,14 @@ namespace tests
 			Computer.Execute(ui);
 			Assert.That (ui.DisplayedMessage, Is.EqualTo("1, 3, 6, 10, 15"));
 		}
+		
+		[Test]
+		public void Compute_IntegerSum_For_UnderTwelve()
+		{
+			var ui = new FakeUserInteraction( "integer sum", "under", "12" );
+			Computer.Execute(ui);
+			Assert.That (ui.DisplayedMessage, Is.EqualTo("1, 3, 6, 10"));
+		}
 	}
 }
 
