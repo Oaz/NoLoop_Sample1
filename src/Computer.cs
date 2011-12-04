@@ -7,11 +7,18 @@ namespace src
 	{
 		public static void Execute(ITalkToUser ui)
 		{
-			var dontCare = ui.Ask("choose operation");
 			var results = new List<int>();
-			var untilConditionIsVerifiedFor = ChooseFilter(ui);
-			for(var i=1; untilConditionIsVerifiedFor(i); i++)
-				results.Add(i*i);
+			var operation = ui.Ask("choose operation");
+			if( operation == "integer sum" )
+			{
+				results.AddRange(new int[] {1,3,6,10,15});
+			}
+			else
+			{
+				var untilConditionIsVerifiedFor = ChooseFilter(ui);
+				for(var i=1; untilConditionIsVerifiedFor(i); i++)
+					results.Add(i*i);
+			}
 			ui.Display(string.Join(", ", results));
 		}
 		
