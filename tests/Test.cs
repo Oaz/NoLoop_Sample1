@@ -14,6 +14,14 @@ namespace tests
 			Computer.Execute(ui);
 			Assert.That (ui.DisplayedMessage, Is.EqualTo("1, 4, 9, 16"));
 		}
+		
+		[Test]
+		public void Compute_Square_For_FiveFirstItems()
+		{
+			var ui = new FakeUserInteraction( "square", "first items", "5" );
+			Computer.Execute(ui);
+			Assert.That (ui.DisplayedMessage, Is.EqualTo("1, 4, 9, 16, 25"));
+		}
 	}
 }
 
