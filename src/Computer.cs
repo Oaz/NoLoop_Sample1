@@ -11,7 +11,11 @@ namespace src
 			var filter = ui.Ask("choose filter");
 			if( filter == "under" )
 			{
-				ui.Display("1, 4, 9, 16"); 
+				var maxValue = int.Parse(ui.Ask("max value"));
+				var results = new List<int>();
+				for(var i=1; i*i <= maxValue; i++)
+					results.Add(i*i);
+				ui.Display(string.Join(", ", results));
 			}
 			else
 			{
