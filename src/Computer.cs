@@ -9,22 +9,20 @@ namespace src
 		{
 			var dontCare = ui.Ask("choose operation");
 			var filter = ui.Ask("choose filter");
+			var results = new List<int>();
 			if( filter == "under" )
 			{
 				var maxValue = int.Parse(ui.Ask("max value"));
-				var results = new List<int>();
 				for(var i=1; i*i <= maxValue; i++)
 					results.Add(i*i);
-				ui.Display(string.Join(", ", results));
 			}
 			else
 			{
 				var numberOfItems = int.Parse(ui.Ask("number of items"));
-				var results = new List<int>();
 				for(var i=1; i <= numberOfItems; i++)
 					results.Add(i*i);
-				ui.Display(string.Join(", ", results));
 			}
+			ui.Display(string.Join(", ", results));
 		}
 	}
 }
