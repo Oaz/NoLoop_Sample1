@@ -9,9 +9,9 @@ namespace src
 		public static void Execute(ITalkToUser ui)
 		{
 			var operation = ChooseOperation(ui);
-			var conditionIsVerified = ChooseFilter(ui,operation);
-			var results = Integers().TakeWhile (conditionIsVerified).Select (operation);
-			ui.Display(string.Join(", ", results));
+			var results = Integers().Select(operation);
+			var filteredResults = ChooseFilter(ui)(results);
+			ui.Display(string.Join(", ", filteredResults));
 		}
 		
 		static IEnumerable<int> Integers()
@@ -37,18 +37,18 @@ namespace src
 			}
 		}
 		
-		static Func<int,bool> ChooseFilter(ITalkToUser ui, Func<int,int> operation)
+		static Func<IEnumerable<int>,IEnumerable<int>> ChooseFilter(ITalkToUser ui)
 		{
 			var filter = ui.Ask("choose filter");
 			if( filter == "under" )
 			{
 				var maxValue = int.Parse(ui.Ask("max value"));
-				return i => (operation(i) <= maxValue);
+				return e => e.TakeWhile( n => n <= maxValue);
 			}
 			else
 			{
 				var numberOfItems = int.Parse(ui.Ask("number of items"));
-				return i => (i <= numberOfItems);
+				return e => e.Take(numberOfItems);
 			}
 		}
 	}
