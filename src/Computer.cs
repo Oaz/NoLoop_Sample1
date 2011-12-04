@@ -11,7 +11,9 @@ namespace src
 			var operation = ui.Ask("choose operation");
 			if( operation == "integer sum" )
 			{
-				results.AddRange(new int[] {1,3,6,10,15});
+				var untilConditionIsVerifiedFor = ChooseFilter(ui);
+				for(var i=1; untilConditionIsVerifiedFor(i); i++)
+					results.Add(i*(i+1)/2);
 			}
 			else
 			{
