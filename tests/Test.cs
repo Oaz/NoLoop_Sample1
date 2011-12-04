@@ -22,6 +22,14 @@ namespace tests
 			Computer.Execute(ui);
 			Assert.That (ui.DisplayedMessage, Is.EqualTo("1, 4, 9, 16, 25"));
 		}
+		
+		[Test]
+		public void Compute_Square_For_UnderTwenty()
+		{
+			var ui = new FakeUserInteraction( "square", "under", "20" );
+			Computer.Execute(ui);
+			Assert.That (ui.DisplayedMessage, Is.EqualTo("1, 4, 9, 16"));
+		}
 	}
 }
 
