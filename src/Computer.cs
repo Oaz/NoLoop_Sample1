@@ -27,13 +27,31 @@ namespace src
 		static Func<int,int> ChooseOperation(ITalkToUser ui)
 		{
 			var operation = ui.Ask("choose operation");
-			if( operation == "integer sum" )
+			if( operation == "syracuse" )
+			{
+				var rank = int.Parse(ui.Ask("rank"));
+				return i => SyracuseSequence(i).ElementAt(rank-1);
+			}
+			else if( operation == "integer sum" )
 			{
 				return i => i*(i+1)/2;
 			}
 			else
 			{
 				return i => i*i;
+			}
+		}
+		
+		static IEnumerable<int> SyracuseSequence(int seed)
+		{
+			var n = seed;
+			while(true)
+			{
+				yield return n;
+				if(n%2==0)
+					n = n/2;
+				else
+					n = 3*n+1;
 			}
 		}
 		

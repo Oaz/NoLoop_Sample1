@@ -54,6 +54,14 @@ namespace tests
 			Computer.Execute(ui);
 			Assert.That (ui.DisplayedMessage, Is.EqualTo("1, 3, 15"));
 		}
+		
+		[Test]
+		public void Compute_SyracuseThirdItem_For_UnderSix()
+		{
+			var ui = new FakeUserInteraction( "syracuse", "3", "under", "6" );
+			Computer.Execute(ui);
+			Assert.That (ui.DisplayedMessage, Is.EqualTo("2, 4, 5, 1"));
+		}
 	}
 }
 
