@@ -8,21 +8,26 @@ namespace src
 		public static void Execute(ITalkToUser ui)
 		{
 			var dontCare = ui.Ask("choose operation");
-			var filter = ui.Ask("choose filter");
 			var results = new List<int>();
+			var untilConditionIsVerifiedFor = ChooseFilter(ui);
+			for(var i=1; untilConditionIsVerifiedFor(i); i++)
+				results.Add(i*i);
+			ui.Display(string.Join(", ", results));
+		}
+		
+		static Func<int,bool> ChooseFilter(ITalkToUser ui)
+		{
+			var filter = ui.Ask("choose filter");
 			if( filter == "under" )
 			{
 				var maxValue = int.Parse(ui.Ask("max value"));
-				for(var i=1; i*i <= maxValue; i++)
-					results.Add(i*i);
+				return i => (i*i <= maxValue);
 			}
 			else
 			{
 				var numberOfItems = int.Parse(ui.Ask("number of items"));
-				for(var i=1; i <= numberOfItems; i++)
-					results.Add(i*i);
+				return i => (i <= numberOfItems);
 			}
-			ui.Display(string.Join(", ", results));
 		}
 	}
 }
