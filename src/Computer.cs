@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace src
@@ -7,12 +8,20 @@ namespace src
 	{
 		public static void Execute(ITalkToUser ui)
 		{
-			var results = new List<int>();
 			var operation = ChooseOperation(ui);
-			var untilConditionIsVerifiedFor = ChooseFilter(ui,operation);
-			for(var i=1; untilConditionIsVerifiedFor(i); i++)
-				results.Add(operation(i));
+			var conditionIsVerified = ChooseFilter(ui,operation);
+			var results = Integers().TakeWhile (conditionIsVerified).Select (operation);
 			ui.Display(string.Join(", ", results));
+		}
+		
+		static IEnumerable<int> Integers()
+		{
+			int n = 1;
+			while(true)
+			{
+				yield return n;
+				n++;
+			}
 		}
 		
 		static Func<int,int> ChooseOperation(ITalkToUser ui)
