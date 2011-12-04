@@ -46,6 +46,14 @@ namespace tests
 			Computer.Execute(ui);
 			Assert.That (ui.DisplayedMessage, Is.EqualTo("1, 3, 6, 10"));
 		}
+		
+		[Test]
+		public void Compute_IntegerSum_For_OddUnderSeventeen()
+		{
+			var ui = new FakeUserInteraction( "integer sum", "odd under", "17" );
+			Computer.Execute(ui);
+			Assert.That (ui.DisplayedMessage, Is.EqualTo("1, 3, 15"));
+		}
 	}
 }
 

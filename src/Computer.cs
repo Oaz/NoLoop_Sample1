@@ -40,10 +40,15 @@ namespace src
 		static Func<IEnumerable<int>,IEnumerable<int>> ChooseFilter(ITalkToUser ui)
 		{
 			var filter = ui.Ask("choose filter");
-			if( filter == "under" )
+			if( filter == "odd under" )
 			{
 				var maxValue = int.Parse(ui.Ask("max value"));
-				return e => e.TakeWhile( n => n <= maxValue);
+				return e => e.TakeWhile( n => n <= maxValue ).Where( n => n%2==1 );
+			}
+			else if( filter == "under" )
+			{
+				var maxValue = int.Parse(ui.Ask("max value"));
+				return e => e.TakeWhile( n => n <= maxValue );
 			}
 			else
 			{
