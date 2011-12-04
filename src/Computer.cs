@@ -8,20 +8,24 @@ namespace src
 		public static void Execute(ITalkToUser ui)
 		{
 			var results = new List<int>();
+			var operation = ChooseOperation(ui);
+			var untilConditionIsVerifiedFor = ChooseFilter(ui);
+			for(var i=1; untilConditionIsVerifiedFor(i); i++)
+				results.Add(operation(i));
+			ui.Display(string.Join(", ", results));
+		}
+		
+		static Func<int,int> ChooseOperation(ITalkToUser ui)
+		{
 			var operation = ui.Ask("choose operation");
 			if( operation == "integer sum" )
 			{
-				var untilConditionIsVerifiedFor = ChooseFilter(ui);
-				for(var i=1; untilConditionIsVerifiedFor(i); i++)
-					results.Add(i*(i+1)/2);
+				return i => i*(i+1)/2;
 			}
 			else
 			{
-				var untilConditionIsVerifiedFor = ChooseFilter(ui);
-				for(var i=1; untilConditionIsVerifiedFor(i); i++)
-					results.Add(i*i);
+				return i => i*i;
 			}
-			ui.Display(string.Join(", ", results));
 		}
 		
 		static Func<int,bool> ChooseFilter(ITalkToUser ui)
